@@ -8,6 +8,22 @@ import copy
 import sys
 
 
+class RvOs(object):
+    is_win = 0
+    is_linux = 0
+    is_mac = 0
+
+    if sys.platform.startswith("win"):
+        os_type = "win"
+        is_win = 1
+    elif sys.platform.startswith("linux"):
+        os_type = "linux"
+        is_linux = 1
+    else:
+        os_type = "mac"
+        is_mac = 1
+
+
 class Api(object):
 
     def __init__(self, render_server):

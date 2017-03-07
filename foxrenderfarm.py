@@ -43,6 +43,8 @@ class Api(object):
         r = requests.post(self.url, headers=self.headers,
                           data=data)
         if r.status_code == 200:
+            if r.json()["head"]["result"] != "0":
+                print "Error: " + r.json()["head"]["error_message"]
             return r.json()
         elif r.status_code == 405:
             print r.status_code

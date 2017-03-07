@@ -56,7 +56,6 @@ class Api(object):
 
 class Fox(Api):
     root = os.path.dirname(os.path.abspath(__file__))
-    ascp_exe = os.path.join(root, "aspera", "ascp.exe")
 
     def __init__(self, render_server, account, access_key, language="en",
                  debug=0):

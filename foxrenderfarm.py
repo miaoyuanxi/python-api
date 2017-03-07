@@ -26,10 +26,10 @@ class RvOs(object):
 
 class Api(object):
 
-    def __init__(self, render_server):
+    def __init__(self, render_server, debug=0):
         self.url = 'https://%s/api/v1/task' % (render_server)
         self.headers = {"Content-Type": "application/json"}
-        self.debug = 0
+        self.debug = debug
 
     def post(self, data):
         if self.debug:
@@ -58,8 +58,9 @@ class Fox(Api):
     root = os.path.dirname(os.path.abspath(__file__))
     ascp_exe = os.path.join(root, "aspera", "ascp.exe")
 
-    def __init__(self, render_server, account, access_key, language="en"):
-        Api.__init__(self, render_server)
+    def __init__(self, render_server, account, access_key, language="en",
+                 debug=0):
+        Api.__init__(self, render_server, debug=debug)
         self.data = {"head": {"access_key": access_key,
                               "account": account,
                               "msg_locale": language,

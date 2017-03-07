@@ -6,6 +6,7 @@ import os
 import pprint
 import copy
 import sys
+import time
 
 
 class RvOs(object):
@@ -32,6 +33,8 @@ class Api(object):
         self.debug = debug
 
     def post(self, data):
+        time.sleep(10)
+
         if self.debug:
             print "\n"
             print "Post data:"

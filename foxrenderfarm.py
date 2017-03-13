@@ -57,7 +57,7 @@ class Api(object):
             raise Exception("Server internal error.")
 
 
-class Fox(Api):
+class Fox(Api, RvOs):
     root = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self, render_server, account, access_key, language="en",

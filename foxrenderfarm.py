@@ -257,7 +257,8 @@ class Fox(Api, RvOs):
                         including project_path, render_os, remark, sub_account
 
     """
-    def create_project(self, project_name, render_os="Windows", **kwargs):
+    def create_project(self, project_name, cg_soft_name, plugin_name="",
+                       render_os="Windows", **kwargs):
         data = copy.deepcopy(self.data)
         data["head"]["action"] = "create_project"
         data["body"]["render_os"] = render_os
@@ -271,6 +272,8 @@ class Fox(Api, RvOs):
         result = self.post(data=data)
         if result["head"]["result"] == '0':
             project_id = int(result["body"]["project_id"])
+            self.add_project_config(project_id, cg_soft_name, plugin_name,
+                                    is_default=1)
             self._message_output("INFO", "Project ID: {0}".format(project_id))
             return project_id
         else:

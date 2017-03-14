@@ -8,7 +8,11 @@ https://github.com/renderbus/python-api
 - requests (We already test ok with requests 2.11.1)
 
 ## Important Note
-Please don't send the requests to our web site too frequently. Or you might see below message `Error: The interval less than 10s from the last time`. Sending 1 request per 10 seconds should be ok.
+Please don't send the requests to our web site too frequently. Or you might see below message
+
+`Error: The interval less than 10s from the last time`.
+
+Sending 1 request per 10 seconds should be ok.
 
 ## Submiting Step
 - You must have a Fox Render Farm / Renderbus account to use our service, then create a project and select the plugins you want to use on our web site before submiting.
@@ -25,7 +29,7 @@ fox.upload(local_path_list=[r"v:\project\shot\lgt.ma", r"v:\project\asset\source
 
 - Create the project
 ```py
-fox.create_project(project_name="XXX", , render_os="Linux",
+fox.create_project(project_name="XXX", render_os="Linux",
                    cg_soft_name="maya 2015", plugin_name="pgYetiMaya 1.3.17")
 ```
 

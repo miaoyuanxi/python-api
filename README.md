@@ -66,7 +66,7 @@ fox.get_projects()
 
 - get specific project info
 ```py
-fox.get_projects(project_name="XXX", render_os="Linux")
+fox.get_projects(project_name="XXX")
 ```
 
 - get all tasks

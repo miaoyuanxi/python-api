@@ -47,7 +47,7 @@ class Api(object):
                           data=data)
         if r.status_code == 200:
             if r.json()["head"]["result"] != "0":
-                print "Error: " + r.json()["head"]["error_message"]
+                print "[ERROR]: " + r.json()["head"]["error_message"]
             return r.json()
         elif r.status_code == 405:
             print r.status_code
@@ -272,10 +272,9 @@ class Fox(Api, RvOs):
         if result["head"]["result"] == '0':
             project_id = int(result["body"]["project_id"])
             self._message_output("INFO", "Project ID: {0}".format(project_id))
-            return True, project_id
+            return project_id
         else:
-            self._message_output("ERROR", result["head"]["error_message"])
-            return False
+            return -1
 
     def _message_output(self, msg_type=None, msg=None):
         print "[{0}]: {1}".format(msg_type, msg)
@@ -338,7 +337,6 @@ class Fox(Api, RvOs):
         if result["head"]["result"] == "0":
             return True
         else:
-            self._message_output("ERROR", result["head"]["error_message"])
             return False
 
     """ NO 7.2.4 Delete config for project

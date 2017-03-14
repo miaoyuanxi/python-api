@@ -257,9 +257,10 @@ class Fox(Api, RvOs):
                         including project_path, render_os, remark, sub_account
 
     """
-    def create_project(self, project_name, **kwargs):
+    def create_project(self, project_name, render_os="Windows", **kwargs):
         data = copy.deepcopy(self.data)
         data["head"]["action"] = "create_project"
+        data["body"]["render_os"] = render_os
 
         if not project_name:
             raise Exception("Missing project_name, please check")

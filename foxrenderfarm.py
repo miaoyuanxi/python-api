@@ -212,7 +212,8 @@ class Fox(Api, RvOs):
                                                                   transmit_type,
                                                                   local_path,
                                                                   server_path)
-                print cmd
+                if self.debug:
+                    print cmd
                 result[i] = True
                 sys.stdout.flush()
                 result[i] = os.system(cmd)
@@ -224,7 +225,6 @@ class Fox(Api, RvOs):
 
         transmit_type = "download_files"
         task = self.get_tasks(task_id)
-
         if task:
             input_scene_path = task[0]["input_scene_path"]
             server_path = "%s_%s" % (task_id, os.path.splitext(os.path.basename(input_scene_path))[0].strip())
@@ -238,7 +238,8 @@ class Fox(Api, RvOs):
                                                               transmit_type,
                                                               local_path,
                                                               server_path)
-            print cmd
+            if self.debug:
+                print cmd
             sys.stdout.flush()
             return os.system(cmd)
         else:
@@ -323,7 +324,6 @@ class Fox(Api, RvOs):
         data = copy.deepcopy(self.data)
         data["head"]["action"] = "operate_project"
         data["body"]["operate_type"] = 0
-
 
         data["body"]["project_id"] = int(project_id)
         data["body"]["cg_soft_name"] = cg_soft_name

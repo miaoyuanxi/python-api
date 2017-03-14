@@ -258,9 +258,15 @@ class Fox(Api, RvOs):
 
     """
     def create_project(self, project_name, cg_soft_name, plugin_name="",
-                       render_os="Windows", **kwargs):
+                       render_os="", **kwargs):
         data = copy.deepcopy(self.data)
         data["head"]["action"] = "create_project"
+        if not render_os:
+            if self.is_win:
+                render_os = "Windows"
+            else:
+                render_os = "Linux"
+
         data["body"]["render_os"] = render_os
 
         if not project_name:

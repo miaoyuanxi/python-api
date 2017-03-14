@@ -29,8 +29,7 @@ fox.upload(local_path_list=[r"v:\project\shot\lgt.ma", r"v:\project\asset\source
 
 - Create the project
 ```py
-fox.create_project(project_name="XXX", render_os="Linux",
-                   cg_soft_name="maya 2015", plugin_name="pgYetiMaya 1.3.17")
+fox.create_project(project_name="XXX", cg_soft_name="maya 2015", plugin_name="pgYetiMaya 1.3.17")
 ```
 
 - After all the dependancy files of Maya Task such as texture, cache etc have been uploaded, you can submit task to cloud server.

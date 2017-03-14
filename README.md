@@ -153,7 +153,3 @@ restart_type:
 3 -- restart the start frames
 
 4 -- restart the waiting frames
-
-
-## HTTP API Manual
-Generally, This is not necessary to see this manual, but if you like you can find the latest version HTTP API Manual at https://innerx.gitbooks.io/rayvision-render-api/content/, we only have a chinese version of manual currently.

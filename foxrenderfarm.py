@@ -69,21 +69,26 @@ class Fox(Api, RvOs):
                               "action": ""},
                      "body": {}}
         self.login()
-        self.rayvision_exe = os.path.join("rayvision", "rayvision_transmitter")
-        self._init_upload_download_config()
 
     def login(self):
         result = self.get_users()
         if result:
-            self.account_id = result[0]["id"]
+            self.user_info = result[0]
+            self._init_upload_download_config()
         else:
-            raise Exception("account or access_key is not valid.")
+            raise Exception("Login failed.")
 
     def _init_upload_download_config(self):
-        user_info = self.get_users()[0]
-        self.upload_id = user_info["upload_id"]
-        self.download_id = user_info["download_id"]
-        self.transports = user_info["transports"]
+        if self.is_win:
+            self.rayvision_exe = os.path.join(self.root, "rayvision", "windows",
+                                              "rayvision_transmitter.exe")
+        else:
+            self.rayvision_exe = os.path.join(self.root, "rayvision", "centos",
+                                              "rayvision_transmitter")
+        self.account_id = self.user_info["id"]
+        self.upload_id = self.user_info["upload_id"]
+        self.download_id = self.user_info["download_id"]
+        self.transports = self.user_info["transports"]
 
         if self.transports:
             self.engine_type = self.transports[0]["engine"]

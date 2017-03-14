@@ -20,7 +20,7 @@ fox = Fox(render_server="www5.renderbus.com", account="XXX", access_key="XXX")
 
 - Upload local files or folders to cloud server and skip the existing same file by default.
 ```py
-fox.upload(path_list=[r"v:\project\shot\lgt.ma", r"v:\project\asset\sourceimages"])
+fox.upload(local_path_list=[r"v:\project\shot\lgt.ma", r"v:\project\asset\sourceimages"])
 ```
 
 - Create the project
@@ -30,7 +30,7 @@ fox.create_project(project_name="XXX")
 
 - Add the plugins setting for project
 ```py
-fox.add_project_config(10000, "maya 2014", "pgYetiMaya 1.3.17")
+fox.add_project_config(10000, "maya 2014", "pgYetiMaya 1.3.17", is_default=1)
 ```
 
 - After all the dependancy files of Maya Task such as texture, cache etc have been uploaded, you can submit task to cloud server.

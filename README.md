@@ -63,7 +63,7 @@ fox.download(task_id=11111, local_path=r"v:\project\output")
 fox.create_project(project_name="XXX", cg_soft_name="houdini 13")
 ```
 - Cause houdini need some specific args to set the rop node info, so the task_info dict must be created firstly, please look at below code.
-- option -1 means reader task and 0 means similation task.
+- option `-1` means render process and `0` means similation process.
 ```py
 task_info = {"project_name": "XXX",
                "input_scene_path": r"D:\renderFile\test.hip",

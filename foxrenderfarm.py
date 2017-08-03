@@ -28,7 +28,7 @@ class RvOs(object):
 class Api(object):
 
     def __init__(self, render_server, debug=0):
-        self.url = 'https://%s/api/v1/task' % (render_server)
+        self.url = 'https://%s/api/v2/task' % (render_server)
         self.headers = {"Content-Type": "application/json"}
         self.debug = debug
 

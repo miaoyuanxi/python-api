@@ -152,6 +152,65 @@ class Fox(Api, RvOs):
             pprint.pprint(result)
             return -1
 
+    def submit_maya(self, **kwargs):
+        return self.submit_task(**kwargs)
+
+    def submit_houdini(self, **kwargs):
+        data = copy.deepcopy(self.data)
+        data["head"]["action"] = "create_houdini_task"
+
+        if kwargs:
+            for i in kwargs:
+                if i != "rop_info":
+                    data["body"][i] = kwargs[i]
+                else:
+                    data["body"]["layer_list"] = kwargs["rop_info"]
+                    for j in data["body"]["layer_list"]:
+                        j["layerName"] = j["rop"]
+                        j.pop("rop")
+
+            if "project_name" not in kwargs:
+                raise Exception("Missing project_name args, please check.")
+            if "input_scene_path" not in kwargs:
+                raise Exception("Missing input_scene_path args, please check.")
+            if "rop_info" not in kwargs:
+                raise Exception("Missing rop info, please check args.")
+
+        data["body"]["input_scene_path"] = data["body"]["input_scene_path"].replace(":", "").replace("\\", "/")
+
+        project = self.get_projects(kwargs["project_name"])
+        if not project:
+            raise Exception("Project <%s> doesn't exists." % (kwargs["project_name"]))
+
+        plugins = project[0]["plugins"]
+        no_plugin = True
+        for i in plugins:
+            if i:
+                no_plugin = False
+                break
+        if no_plugin:
+            raise Exception("Project <%s> doesn't have any plugin settings." % (kwargs["project_name"]))
+
+        default_plugin = [i for i in plugins
+                          if "is_default" in i if i["is_default"] == '1']
+
+        if len(plugins) == 1:
+            default_plugin = plugins
+
+        if not default_plugin:
+            raise Exception("Project <%s> doesn't have a default plugin settings." % (kwargs["project_name"]))
+
+        data["body"]["cg_soft_name"] = default_plugin[0]["cg_soft_name"]
+        if "plugin_name" in default_plugin[0]:
+            data["body"]["plugin_name"] = default_plugin[0]["plugin_name"]
+
+        result = self.post(data)
+        if result["head"]["result"] == '0':
+            return int(result["body"]["data"][0]["task_id"])
+        else:
+            pprint.pprint(result)
+            return -1
+
     def get_users(self, has_child_account=0):
         data = copy.deepcopy(self.data)
         data["head"]["action"] = "query_customer"

@@ -7,6 +7,10 @@ https://github.com/renderbus/python-api
 ## Requirement
 - requests (We already test ok with requests 2.11.1)
 
+## Supporting Software
+- Maya
+- Houdini
+
 ## Important Note
 Please don't send the requests to our web site too frequently. Or you might see below message
 
@@ -14,8 +18,8 @@ Please don't send the requests to our web site too frequently. Or you might see 
 
 Sending 1 request per 10 seconds should be ok.
 
-## Submiting Step
-- You must have a Fox Render Farm / Renderbus account to use our service, then create a project and select the plugins you want to use on our web site before submiting.
+## Submitting Maya Task Step
+- You must have a Fox Render Farm / Renderbus account to use our service, then create a project and select the plugins you want to use on our web site before Submitting.
 
 - Login in our cloud server account first, some information such as access key, you need ask for our support team.
 ```py
@@ -50,6 +54,27 @@ fox.submit_task(**task_info)
 - After rendering complete, you can download the entire task output files from cloud server, but single frame download function is not supported yet. The download method will skip the existing same files which already downloaded by default.
 ```py
 fox.download(task_id=11111, local_path=r"v:\project\output")
+```
+
+## Submitting Houdini Task Step
+- Submitting houdini task step is very similar with maya task, the main difference is using `fox.submit_houdini()` method instead of the `fox.submit_task()` method.
+- Create the project
+```py
+fox.create_project(project_name="XXX", cg_soft_name="houdini 13")
+```
+- Cause houdini need some specific args to set the rop node info, so the task_info dict must be created firstly, please look at below code.
+- option -1 means reader task and 0 means similation task.
+```py
+task_info = {"project_name": "XXX",
+               "input_scene_path": r"D:\renderFile\test.hip",
+               "rop_info":  [{"frames": "1-240[1]",
+                              "rop": "/obj/grid_object1/rop_geometry1",
+                              "option": "0"},
+                             {"frames": "1-20[1]",
+                              "rop": "/out/mantra1",
+                              "option": "-1"}]
+             }             
+fox.submit_houdini(**task_info)
 ```
 
 ## Query Method

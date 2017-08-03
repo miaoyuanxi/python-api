@@ -37,6 +37,12 @@ class Api(object):
 
         if self.debug:
             print "\n"
+            print "URL:"
+            print self.url
+            print "\n"
+            print "headers:"
+            pprint.pprint(self.headers)
+            print "\n"
             print "Post data:"
             pprint.pprint(data)
             print "\n"

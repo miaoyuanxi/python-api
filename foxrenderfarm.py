@@ -104,7 +104,10 @@ class Fox(Api, RvOs):
 
     def submit_task(self, **kwargs):
         data = copy.deepcopy(self.data)
-        data["head"]["action"] = "create_task"
+        if "action" in kwargs:
+            data["head"]["action"] = kwargs["action"]
+        else:
+            data["head"]["action"] = "create_task"
 
         if kwargs:
             for i in kwargs:
@@ -210,6 +213,9 @@ class Fox(Api, RvOs):
         else:
             pprint.pprint(result)
             return -1
+
+    def submit_blender(self, **kwargs):
+        return self.submit_task(action="create_blender_task", **kwargs)
 
     def get_users(self, has_child_account=0):
         data = copy.deepcopy(self.data)

@@ -77,6 +77,17 @@ task_info = {"project_name": "XXX",
 fox.submit_houdini(**task_info)
 ```
 
+## Submitting Blender Task Step
+- Submitting blender task step is very similar with maya task, the main difference is using `fox.submit_blender()` method instead of the `fox.submit_task()` method.
+- Create the project
+```py
+fox.create_project(project_name="XXX", cg_soft_name="blender 2.78c")
+```
+- Submit blender task
+```py
+fox.submit_blender(project_name="XXX", input_scene_path=r"D:\renderFile\blender276_test\test_276.blend", frames="1-10[1]")
+```
+
 ## Query Method
  - get user info
 ```py

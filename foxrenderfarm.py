@@ -267,7 +267,6 @@ class Fox(Api, RvOs):
             return []
 
     def upload(self, local_path_list, server_path='/', **kwargs):
-
         transmit_type = "upload_files"
         result = {}
         for i in set(local_path_list):

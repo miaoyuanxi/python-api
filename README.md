@@ -134,6 +134,7 @@ fox.get_tasks(task_id=11111, has_frames=1)
 ## Some operation of task
 
 - submit_task()
+
 - get_tasks()
 
 - stop the task

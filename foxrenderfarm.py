@@ -32,7 +32,7 @@ class Api(object):
         self.headers = {"Content-Type": "application/json"}
         self.debug = debug
 
-    def post(self, data):
+    def post(self, data, timeout=10):
         time.sleep(10)
 
         if self.debug:
@@ -50,7 +50,7 @@ class Api(object):
         if isinstance(data, dict):
             data = json.dumps(data)
         r = requests.post(self.url, headers=self.headers,
-                          data=data)
+                          data=data, timeout=timeout)
         if r.status_code == 200:
             if r.json()["head"]["result"] != "0":
                 print "[ERROR]: " + r.json()["head"]["error_message"]
@@ -216,6 +216,9 @@ class Fox(Api, RvOs):
 
     def submit_blender(self, **kwargs):
         return self.submit_task(action="create_blender_task", **kwargs)
+        
+    def submit_max(self, **kwargs):
+        return self.submit_task(action="create_max_task", **kwargs)
 
     def get_users(self, has_child_account=0):
         data = copy.deepcopy(self.data)
@@ -272,16 +275,16 @@ class Fox(Api, RvOs):
         for i in set(local_path_list):
             if os.path.exists(i):
                 local_path = i
-                cmd = "echo y | %s %s %s %s %s %s %s %s %s %s" % (self.rayvision_exe,
-                                                                  self.engine_type,
-                                                                  self.server_name,
-                                                                  self.server_ip,
-                                                                  self.server_port,
-                                                                  self.upload_id,
-                                                                  self.account_id,
-                                                                  transmit_type,
-                                                                  local_path,
-                                                                  server_path)
+                cmd = 'echo y | "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"' % (self.rayvision_exe,
+                                                                                      self.engine_type,
+                                                                                      self.server_name,
+                                                                                      self.server_ip,
+                                                                                      self.server_port,
+                                                                                      self.upload_id,
+                                                                                      self.account_id,
+                                                                                      transmit_type,
+                                                                                      local_path,
+                                                                                      server_path)
                 if self.debug:
                     print cmd
                 result[i] = True
@@ -298,16 +301,16 @@ class Fox(Api, RvOs):
         if task:
             input_scene_path = task[0]["input_scene_path"]
             server_path = "%s_%s" % (task_id, os.path.splitext(os.path.basename(input_scene_path))[0].strip())
-            cmd = "echo y | %s %s %s %s %s %s %s %s %s %s" % (self.rayvision_exe,
-                                                              self.engine_type,
-                                                              self.server_name,
-                                                              self.server_ip,
-                                                              self.server_port,
-                                                              self.download_id,
-                                                              self.account_id,
-                                                              transmit_type,
-                                                              local_path,
-                                                              server_path)
+            cmd = 'echo y | "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"' % (self.rayvision_exe,
+                                                                                  self.engine_type,
+                                                                                  self.server_name,
+                                                                                  self.server_ip,
+                                                                                  self.server_port,
+                                                                                  self.download_id,
+                                                                                  self.account_id,
+                                                                                  transmit_type,
+                                                                                  local_path,
+                                                                                  server_path)
             if self.debug:
                 print cmd
             sys.stdout.flush()

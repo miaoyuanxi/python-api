@@ -10,6 +10,7 @@ https://github.com/renderbus/python-api
 ## Supporting Software
 - Maya
 - Houdini
+- 3ds Max
 
 ## Important Note
 Please don't send the requests to our web site too frequently. Or you might see below message
@@ -86,6 +87,32 @@ fox.create_project(project_name="XXX", cg_soft_name="blender 2.78c")
 - Submit blender task
 ```py
 fox.submit_blender(project_name="XXX", input_scene_path=r"D:\renderFile\blender276_test\test_276.blend", frames="1-10[1]")
+```
+
+## Submitting Max Task Step
+- Submitting Max task step is very similar with maya task, the main difference is using `fox.submit_max()` method instead of the `fox.submit_task()` method.
+- Create the project
+```py
+fox.create_project(project_name="XXX", cg_soft_name="3ds Max 2014")
+```
+- Submit Max task
+```py
+fox.submit_max(project_name="XXX", input_scene_path=r"D:\renderFile\max2014.max", frames="1-10[1]")
+```
+- You can also try below method to add some extra info to submit the task.
+```py
+task_info = {
+        "project_name":"api_test3",
+        "input_scene_path":r"D:\renderFile\max2014.max",
+        "cg_soft_name":"3ds Max 2014",
+        "frames":"1",
+        "image_width":"320",
+        "image_height":"640",
+        "output_file_name":"helloworld",
+        "output_file_format":".tga",
+        "camera":"Camera001"
+       }
+fox.submit_max(**task_info)
 ```
 
 ## Query Method

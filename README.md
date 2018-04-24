@@ -24,7 +24,7 @@ Sending 1 request per 10 seconds should be ok.
 
 - Login in our cloud server account first, some information such as access key, you need ask for our support team.
 ```py
-fox = Fox(render_server="www5.renderbus.com", account="XXX", access_key="XXX")
+fox = Fox(render_server="www2.renderbus.com", account="XXX", access_key="XXX")
 ```
 
 - Upload local files or folders to cloud server and skip the existing same file by default.

@@ -1,16 +1,16 @@
 # Fox Render Farm / Renderbus cloud rendering Python API
-We provide a simple Python-based API for using our cloud rendering service. This is the official API that is maintained by Fox Render Farm / Renderbus RD team. The API has been tested ok with python2.7.10 and requests 2.11.1
+We provide a simple Python-based API for using our cloud rendering service. This is the official API that is maintained by Fox Render Farm / Renderbus RD team. The API has been tested ok with python2.7.10 
 
 The latest version can always be found at
 https://github.com/renderbus/python-api
 
-## Requirement
-- requests (We already test ok with requests 2.11.1)
+
 
 ## Supporting Software
 - Maya
 - Houdini
 - 3ds Max
+- Blender 
 
 ## Important Note
 Please don't send the requests to our web site too frequently. Or you might see below message

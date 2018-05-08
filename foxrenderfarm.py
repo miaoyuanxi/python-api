@@ -1,14 +1,14 @@
 # ! /usr/bin/env python
 # coding=utf-8
-import requests
+#import requests
 import json
 import os
 import pprint
 import copy
 import sys
 import time
-
-
+import urllib2
+import urllib
 class RvOs(object):
     is_win = 0
     is_linux = 0
@@ -32,8 +32,11 @@ class Api(object):
         self.headers = {"Content-Type": "application/json"}
         self.debug = debug
 
+        
+        
+    '''
     def post(self, data, timeout=10):
-        time.sleep(10)
+        time.sleep(0)
 
         if self.debug:
             print "\n"
@@ -60,6 +63,45 @@ class Api(object):
             raise Exception("Connect server error.")
         else:
             print r.status_code
+            raise Exception("Server internal error.")
+    '''
+            
+            
+    def post(self, data, method='POST',timeout=10):
+        if self.debug:
+            print "\n"
+            print "URL:"
+            print self.url
+            print "\n"
+            print "headers:"
+            pprint.pprint(self.headers)
+            print "\n"
+            print "Post data:"
+            pprint.pprint(data)
+            print "\n"
+        
+    
+    
+        if isinstance(data, dict):
+            data = json.dumps(data)
+        handler = urllib2.HTTPHandler()
+        opener = urllib2.build_opener(handler)
+        request = urllib2.Request(self.url, data= data )
+        request.add_header("Content-Type", 'application/json')
+        request.get_method = lambda: method
+        response = opener.open(request)
+        #print response.getcode()
+        response_json = json.load(response.fp)
+        
+        if response.getcode() == 200:
+            if response_json["head"]["result"] != "0":
+                print "[ERROR]: " + response_json["head"]["error_message"]
+            return response_json
+        elif response.getcode() == 405:
+            print response.getcode()
+            raise Exception("Connect server error.")
+        else:
+            print response.getcode()
             raise Exception("Server internal error.")
 
 

@@ -138,10 +138,70 @@ class Fox(Api, RvOs):
         self.download_id = self.user_info["download_id"]
         self.transports = self.user_info["transports"]
 
-        if self.transports:
+        """
+        We use the apsera engine and the transit line in Hong Kong by default.
+        If you can't transmit or transmit slowly or want to use the other lines or engine,
+        Please contact our customer service, they will provide you with more line options.
+        """
+        if -1 != self.url.find("www2"):
+            if -1 != self.url.find("foxrenderfarm"):
+                self.engine_type = "aspera"
+                self.server_name = "HKCT"
+                self.server_ip   = "app2.foxrenderfarm.com"
+                self.server_port = 33001
+            else:
+                self.engine_type = "aspera"
+                self.server_name = "ALVS"
+                self.server_ip   = "45.251.92.2"
+                self.server_port = 33001
+        elif -1 != self.url.find("www8"):
+            if -1 != self.url.find("foxrenderfarm"):
+                self.engine_type = "aspera"
+                self.server_name = "HKCT"
+                self.server_ip   = "app8.foxrenderfarm.com"
+                self.server_port = 33001
+            else:
+                self.engine_type = "rayvision"
+                self.server_name = "CTCC"
+                self.server_ip   = "42.123.114.164"
+                self.server_port = 8885
+        elif -1 != self.url.find("www9"):
+            if -1 != self.url.find("foxrenderfarm"):
+                self.engine_type = "aspera"
+                self.server_name = "HKCT"
+                self.server_ip   = "app9.foxrenderfarm.com"
+                self.server_port = 33001
+            else:
+                self.engine_type = "rayvision"
+                self.server_name = "CTCC"
+                self.server_ip   = "45.251.92.18"
+                self.server_port = 8885
+        elif -1 != self.url.find("gpu"):
+            if -1 != self.url.find("foxrenderfarm"):
+                self.engine_type = "aspera"
+                self.server_name = "HKCT"
+                self.server_ip   = "app-gpu.foxrenderfarm.com"
+                self.server_port = 33001
+            else:
+                self.engine_type = "rayvision"
+                self.server_name = "CTCC"
+                self.server_ip   = "42.123.114.170"
+                self.server_port = 8885
+        elif -1 != self.url.find("pic"):
+            if -1 != self.url.find("renderbus"):
+                self.engine_type = "rayvision"
+                self.server_name = "MAIN"
+                self.server_ip   = "pic-main.renderbus.com"
+                self.server_port = 8885
+            else:
+                self.engine_type = "aspera"
+                self.server_name = "MAIN"
+                self.server_ip   = "42.123.110.60"
+                self.server_port = 33001
+        elif self.transports:
             self.engine_type = self.transports[0]["engine"]
             self.server_name = self.transports[0]["server"]
-            self.server_ip = self.transports[0]["ip"]
+            self.server_ip   = self.transports[0]["ip"]
             self.server_port = self.transports[0]["port"]
 
     def submit_task(self, **kwargs):
